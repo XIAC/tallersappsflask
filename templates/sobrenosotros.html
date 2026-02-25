@@ -4,14 +4,46 @@
 
 <h2>Taller Apps - Sobre nosotros</h2>
 <h4>Bienvenido a este sitio de taller .....</h4>
+
+<h3>Agregar Nueva Tarea</h3>
 <form action="/sobrenosotros" method="post">
     {{ form.csrf_token() }}
     {{ form.titulo.label }}
     {{ form.titulo }}
     {{ form.enviar }}
 </form>
-{% if titulo %}
-    <h2>{{ titulo }}</h2>
-{% endif %}
+
+<h3>Tareas Registradas</h3>
+<table border="1" style="width: 100%; margin-top: 20px; border-collapse: collapse;">
+    <thead style="background-color: #f2f2f2;">
+        <tr>
+            <th style="padding: 10px; text-align: left;">ID</th>
+            <th style="padding: 10px; text-align: left;">Título</th>
+            <th style="padding: 10px; text-align: center;">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if tareas %}
+            {% for tarea in tareas %}
+            <tr style="border-bottom: 1px solid #ddd;">
+                <td style="padding: 10px;">{{ tarea.id }}</td>
+                <td style="padding: 10px;">{{ tarea.titulo }}</td>
+                <td style="padding: 10px; text-align: center;">
+                    <button style="background-color: #4CAF50; color: white; padding: 5px 10px; border: none; cursor: pointer; border-radius: 3px; margin-right: 5px;" title="Editar">
+                        ✏️
+                    </button>
+                    <button style="background-color: #f44336; color: white; padding: 5px 10px; border: none; cursor: pointer; border-radius: 3px;" title="Borrar">
+                        ✕
+                    </button>
+                </td>
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="3" style="padding: 10px; text-align: center; color: #999;">No hay tareas registradas</td>
+            </tr>
+        {% endif %}
+    </tbody>
+</table>
 
 {% endblock %}
