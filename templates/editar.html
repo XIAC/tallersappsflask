@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+<h3>Editar Tarea</h3>
+
+<form method="post">
+    {{ form.csrf_token() }}
+    
+    {{ form.titulo.label }}
+    {{ form.titulo(class="form-control") }}
+
+    <br>
+    {{ form.enviar(value="Guardar cambios") }}
+
+    <a href="{{ url_for('sobrenosotros') }}">
+        <button type="button">Cancelar</button>
+    </a>
+</form>
+
+{% endblock %}
