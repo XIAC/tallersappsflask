@@ -29,16 +29,23 @@ def saludo():
 @app.route('/usuario/<nombre>')
 def usuario(nombre):
         return f'Hola{nombre} bienvenido a Taller Apps '
+@app.route("/tareas")
+def listar_tareas():
+    tareas = Tarea.query.all()
+    return render_template("tareas.html", tareas=tareas)
+
+
 @app.route("/tarea/<int:tarea_id>/editar", methods=["GET", "POST"])
 def editar_tarea(tarea_id):
     tarea = Tarea.query.get_or_404(tarea_id)
 
     if request.method == "POST":
-        tarea.titulo = request.form["titulo"]
-        tarea.descripcion = request.form["descripcion"]
+        tarea.titulo = request.form.get("titulo")
+        # si tu modelo NO tiene descripcion, borra la siguiente línea
+        tarea.descripcion = request.form.get("descripcion")
 
         db.session.commit()
         flash("Tarea actualizada correctamente")
-        return redirect(url_for("index"))
+        return redirect(url_for("listar_tareas"))
 
     return render_template("editar.html", tarea=tarea)
