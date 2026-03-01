@@ -2,6 +2,7 @@ from app import app, db
 from flask import render_template
 import formularios
 from models import Tarea
+from flash import redirect, url_for, flash
 
 @app.route('/')
 @app.route('/index')
@@ -28,3 +29,13 @@ def saludo():
 @app.route('/usuario/<nombre>')
 def usuario(nombre):
         return f'Hola{nombre} bienvenido a Taller Apps '
+
+@app.route("/tarea/<int:tarea_id>/eliminar", methods=["POST"])
+def eliminar_tarea(tarea_id):
+    tarea = Tarea.query.get_or_404(tarea_id)
+
+    db.session.delete(tarea)
+    db.session.commit()
+
+    flash("Tarea eliminada correctamente")
+    return redirect(url_for("index"))
