@@ -28,3 +28,8 @@ def saludo():
 @app.route('/usuario/<nombre>')
 def usuario(nombre):
         return f'Hola{nombre} bienvenido a Taller Apps '
+
+@app.route('/tareas')
+def listar_tareas():
+    tareas = Tarea.query.all()
+    return render_template('tareas.html', tareas=tareas)
