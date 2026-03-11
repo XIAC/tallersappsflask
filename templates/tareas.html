@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Lista de Tareas</h2>
+
+<ul>
+    {% for tarea in tareas %}
+        <li>{{ tarea.titulo }}</li>
+    {% else %}
+        <li>No hay tareas registradas</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

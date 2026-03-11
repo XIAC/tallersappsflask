@@ -15,3 +15,9 @@
 {% endif %}
 
 {% endblock %}
+<h3>Lista de Tareas</h3>
+<ul>
+    {% for tarea in tareas %}
+        <li>{{ tarea.titulo }}</li>
+    {% endfor %}
+</ul>
